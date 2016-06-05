@@ -115,4 +115,18 @@ class SendPasswordView(View):
         self._set_new_password(user)   
         return render(request, self.template_name)
             
-        
+class AssignRestaurantsView(View):
+    template_name = 'editorial/assign_success.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user = User.objects.get(id=kwargs.get('user_id'))
+        except User.DoesNotExist:
+            return HttpResponseNotFound()
+        restaurants = Restaurant.objects.filter(allowed_users=None)
+        for restaurant in restaurants:
+            restaurant.allowed_users.add(user)
+        return render(request, self.template_name, {
+            'resto_count': len(restaurants),
+            'user': user.email
+        })       

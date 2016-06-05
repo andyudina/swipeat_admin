@@ -40,9 +40,12 @@ admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.unregister(User)
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'email', 'button_send_password')
+    list_display = ('username', 'first_name', 'last_name', 'email', 'button_send_password', 'button_assign_restaurants')
                 
     def button_send_password(self, instance):
         return mark_safe(u'<a href="/userpassword/' + str(instance.id) + u'/">Отправить пароль</a>')
-
+                
+    def button_assign_restaurants(self, instance):
+        return mark_safe(u'<a href="/assignresttouser/' + str(instance.id) + u'/">Назначить неназначенные рестораны</a>')
+        
 admin.site.register(User, CustomUserAdmin)
