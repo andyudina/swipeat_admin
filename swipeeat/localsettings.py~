@@ -1,0 +1,10 @@
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': 'localhost',
+            'NAME': 'swipeat',
+            'USER': 'root',
+            'PASSWORD': 'Ahjai7ch'
+        }
+}
+

@@ -1,0 +1,41 @@
+{% extends 'editorial/base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <div>
+                <p><a href="/" ><i class="fa fa-chevron-left" style="color: #000;"></i><span style="margin-left: 10px;">Назад</span></a></p>
+                <p><h3 style="color: #000;">Ресторан "{{ restaurant.title }}"</h3></p>
+                <!-- Default panel contents -->
+                <!-- List group -->
+                <div class="login-form-main-message" style="border: 0;">{{ error.message }}</div>
+                <form method="POST" action="/{{ restaurant.id }}/">
+                {% csrf_token %}
+                <ul class="list-group">
+                    {% for question in restaurant.questions %}
+                    <li class="list-group-item">
+                        <div class="[ form-group ]">
+                            <input type="checkbox" name="{{ question.id }}" id="checkbox{{ question.id }}" autocomplete="off"  {% if question.is_true %} checked {% endif %} />
+                            <div class="[ btn-group ]">
+                               <label for="checkbox{{ question.id }}" class="[ btn btn-primary ]">
+                                   <span class="[ glyphicon glyphicon-ok ]"></span>
+                                   <span> </span>
+                              </label>
+                              <label for="checkbox{{ question.id }}" class="[ btn btn-default active ]" style="margin-bottom:4px;white-space: normal;">
+                              {{ question.question }}
+                              </label>
+                          </div>
+                       </div>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item"> <button type="submit" class="btn btn-raised btn-default btn-primary">Сохранить</button> </li>
+                </ul>
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}	
